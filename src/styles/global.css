@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+  --color-maas: #001c3d;
+}

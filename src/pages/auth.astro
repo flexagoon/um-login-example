@@ -1,0 +1,59 @@
+---
+export const prerender = false;
+
+import Layout from "../layouts/Layout.astro";
+
+const ssoId = Astro.url.searchParams.get("SSSOId");
+if (!ssoId) {
+  return Astro.redirect("/");
+}
+
+const identityApiKey = "69025c10-fa8a-4464-a961-2061b6dd3c08";
+const identityUrl = `https://myapplication.maastrichtuniversity.nl/api/identity/${ssoId}`;
+const headers = { Authorization: `Bearer ${identityApiKey}` };
+
+const identityResponse = await fetch(identityUrl, { headers });
+const data = await identityResponse.json();
+const user = data.user.ADFS;
+---
+
+<Layout>
+  <table class="table-auto border-separate border-spacing-3 text-left">
+    <tr>
+      <th scope="row">SSSOId</th>
+      <td>{ssoId}</td>
+    </tr>
+    <tr>
+      <th scope="row">Username</th>
+      <td>{user.Username}</td>
+    </tr>
+    <tr>
+      <th scope="row">PersonID</th>
+      <td>{user.PersonID}</td>
+    </tr>
+    <tr>
+      <th scope="row">Firstname</th>
+      <td>{user.Firstname}</td>
+    </tr>
+    <tr>
+      <th scope="row">Lastname</th>
+      <td>{user.Lastname}</td>
+    </tr>
+    <tr>
+      <th scope="row">Prefix</th>
+      <td>{user.Prefix}</td>
+    </tr>
+    <tr>
+      <th scope="row">EmailAddress</th>
+      <td>{user.EmailAddress}</td>
+    </tr>
+    <tr>
+      <th scope="row">Category</th>
+      <td>{user.Category}</td>
+    </tr>
+    <tr>
+      <th scope="row">DisplayName</th>
+      <td>{user.DisplayName}</td>
+    </tr>
+  </table>
+</Layout>

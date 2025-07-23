@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const ssoApiKey = "86ad4c77-3db3-4f37-861b-7e6ac178b98c";
+const siteUrl = import.meta.env.SITE_URL;
+
+const ssoUrl = `https://simplesso.maastrichtuniversity.nl/IdentityProviderSelection?apiKey=${ssoApiKey}&ReturnUrl=${siteUrl}/auth`;
+---
+
+<Layout>
+  <a
+    href={ssoUrl}
+    class="bg-maas inline-block rounded-md p-3 text-xl text-white"
+  >
+    Log in
+  </a>
+</Layout>
